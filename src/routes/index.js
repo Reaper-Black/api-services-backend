@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 router.get('/', (req, res) => res.send('Hello world'));
 
-router.post('/registro', async (req, res) => {
+router.post('/signin', async (req, res) => {
     const {email, firstname, lastname, password} = req.body
     const newUser = new User({email: email, firstname: firstname, lastname: lastname, password: password})
     await newUser.save()
@@ -14,7 +14,7 @@ router.post('/registro', async (req, res) => {
     res.status(200).json({token})
 })
 
-router.post('/desconectarse', async (req, res) => {
+router.post('/signup', async (req, res) => {
     const { email, password } = req.body
     const user =  await User.findOne({email: email})
     if (!user) return res.status(401).send("Correo inexistente")
