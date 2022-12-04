@@ -4,7 +4,10 @@ const productsSchema = new Schema({
     nombre: String,
     categoria: String,
     ubicacion: String,
-    precio: Number
+    precio: Number,
+    peso: String,
+    dimensiones: String,
+    material: String
 }, {
     timestamps: true
 });
