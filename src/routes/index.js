@@ -5,8 +5,8 @@ const User = require('../models/users')
 const jwt = require('jsonwebtoken')
 
 router.post('/signup', async (req, res) => {
-    const {email, firstname, lastname, password, rol} = req.body
-    const newUser = new User({email: email, firstname: firstname, lastname: lastname, password: password, rol: rol})
+    const {email, firstname, lastname, password, rol, date, age, address } = req.body
+    const newUser = new User({email: email, firstname: firstname, lastname: lastname, password: password, rol: rol, date: date, age: age, address: address})
     await newUser.save()
     const token = jwt.sign({_id : newUser._id }, 'token')
     res.status(200).json({token})

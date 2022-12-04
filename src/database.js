@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-require('dotenv').config({ path: 'conection.env' });
+require('dotenv').config({ path: 'conection.env' })
 
 const conectarDB = async () => {
 
@@ -9,11 +9,11 @@ const conectarDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
-        console.log('Connected to database');
+        console.log('Connected to database')
 
     } catch (error) {
-        console.log(error);
-        process.exit(1);
+        console.log(error)
+        process.exit(1)
     }
 }
 
