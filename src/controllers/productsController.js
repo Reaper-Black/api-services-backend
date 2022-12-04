@@ -1,12 +1,10 @@
 const Producto = require("../models/products");
 
-
 exports.crearProducto = async (req, res) => {
 
     try {
         let producto;
 
-        // Creamos nuestro producto
         producto = new Producto(req.body);
 
         await producto.save();
