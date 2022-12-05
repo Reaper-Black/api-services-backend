@@ -13,8 +13,13 @@ app.use('/apiservices', require('./routes/index'))
 app.use('/apiservices/usuarios', require('./routes/indexUsers'))
 app.use('/apiservices/products', require('./routes/indexProducts'))
 
+app.get("/", (req, res) => {
+    res.status(200).send("Hola API-Servicios Backend")
+})
+
 app.listen(3000, () => {
     console.log('Listening on', 3000)
+
 })
 
 /*const express =  require('express');
