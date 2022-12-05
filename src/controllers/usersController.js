@@ -1,93 +1,95 @@
-const User = require("../models/users")
+const Usuario = require("../models/users");
 
-exports.crearUser = async (req, res) => {
+
+exports.crearUsuario = async (req, res) => {
 
     try {
-        let user
+        let usuario;
 
-        user = new User(req.body)
+        // Creamos nuestro usuario
+        usuario = new Usuario(req.body);
 
-        await user.save()
-        res.send(user)
+        await usuario.save();
+        res.send(usuario);
 
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Algo salió mal!!!')
+        console.log(error);
+        res.status(500).send('Hubo un error');
     }
 }
 
-exports.obtenerUser = async (req, res) => {
+exports.obtenerUsuarios = async (req, res) => {
 
     try {
-        const user = await User.find()
-        res.json(user)
+        const usuarios = await Usuario.find();
+        res.json(usuarios)
 
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Algo salió mal!!!')
+        console.log(error);
+        res.status(500).send('Hubo un error');
     }
 }
 
-exports.actualizarUser = async (req, res) => {
+exports.actualizarUsuario = async (req, res) => {
 
     try {
-        const { email, firstname, lastname, password, rol, date, age, address } = req.body
-        let user = await User.findById(req.params.id)
+        const { email, firstname, lastname, password, rol, date, age, address } = req.body;
+        let usuario = await Usuario.findById(req.params.id);
 
-        if(!user) {
+        if(!usuario) {
             res.status(404).json({ msg: 'No existe el usuario' })
         }
 
-        user.email = email
-        user.firstname = firstname
-        user.lastname = lastname
-        user.password = password
-        user.rol = rol
-        user.date = date
-        user.age = age
-        user.address = address
+        usuario.email = email
+        usuario.firstname = firstname
+        usuario.lastname = lastname
+        usuario.password = password
+        usuario.rol = rol
+        usuario.date = date
+        usuario.age = age
+        usuario.address = address
 
-        user = await User.findOneAndUpdate({ _id: req.params.id },user, { new: true} )
-        res.json(user)
+        usuario = await Usuario.findOneAndUpdate({ _id: req.params.id },usuario, { new: true} )
+        res.json(usuario);
 
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Algo salió mal!!!')
+        console.log(error);
+        res.status(500).send('Hubo un error');
     }
 }
 
 
-exports.obtenerUser = async (req, res) => {
+exports.obtenerUsuario = async (req, res) => {
 
     try {
-        let user = await User.findById(req.params.id)
+        let usuario = await Usuario.findById(req.params.id);
 
-        if(!user) {
+        if(!usuario) {
             res.status(404).json({ msg: 'No existe el usuario' })
         }
 
-        res.json(user)
+        res.json(usuario);
 
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Algo salió mal!!!')
+        console.log(error);
+        res.status(500).send('Hubo un error');
     }
 }
 
-exports.eliminarUser = async (req, res) => {
+exports.eliminarUsuario = async (req, res) => {
 
     try {
-        let user = await User.findById(req.params.id)
+        let usuario = await Usuario.findById(req.params.id);
 
-        if(!user) {
+        if(!usuario) {
             res.status(404).json({ msg: 'No existe el usuario' })
         }
 
-        await User.findOneAndRemove({ _id: req.params.id })
-        res.json({ msg: 'Usuario eliminado con exito' })
+        await Usuario.findOneAndRemove({ _id: req.params.id })
+        res.json({ msg: 'Usuario eliminado con exito' });
 
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Algo salió mal!!!')
+        console.log(error);
+        res.status(500).send('Hubo un error');
     }
 }

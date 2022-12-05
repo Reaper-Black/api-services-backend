@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/apiservices', require('./routes/index'))
-app.use('/apiservices', require('./routes/indexUsers'))
+app.use('/apiservices/usuarios', require('./routes/indexUsers'))
 app.use('/apiservices/products', require('./routes/indexProducts'))
 
 app.listen(3000, () => {
