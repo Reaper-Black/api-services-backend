@@ -5,8 +5,8 @@ const User = require('../models/users')
 const jwt = require('jsonwebtoken')
 
 router.post('/signup', async (req, res) => {
-    const {email, firstname, lastname, password, rol, date, age, address } = req.body
-    const newUser = new User({email: email, firstname: firstname, lastname: lastname, password: password, rol: rol, date: date, age: age, address: address})
+    const {email, nickname, password, rol} = req.body
+    const newUser = new User({email: email, nickname: nickname, password: password, rol: rol})
     await newUser.save()
     const token = jwt.sign({_id : newUser._id }, 'token')
     res.status(200).json({token})
@@ -27,52 +27,6 @@ router.get('/signin', verifyToken, async (req, res) => {
     let usuario = await User.findOne({_id})
     res.json({usuario})
   })
-
-router.get('/tasks', (req, res) => {
-    res.json([
-        {
-            _id: 1,
-            name: 'task one',
-            description: "Hello everyone",
-            date: "2022-10-01T06:44:38.934Z"
-        },
-        {
-            _id: 2,
-            name: 'task two',
-            description: "Hello everyone",
-            date: "2022-10-01T06:44:38.934Z"
-        },
-        {
-            _id: 3,
-            name: 'task three',
-            description: "Hello everyone",
-            date: "2022-10-01T06:44:38.934Z"
-        }
-    ])
-})
-
-router.get('/private-tasks', verifyToken, (req, res) => {
-    res.json([
-        {
-            _id: 1,
-            name: 'task one',
-            description: "Hello everyone",
-            date: "2022-10-01T06:44:38.934Z"
-        },
-        {
-            _id: 2,
-            name: 'task two',
-            description: "Hello everyone",
-            date: "2022-10-01T06:44:38.934Z"
-        },
-        {
-            _id: 3,
-            name: 'task three',
-            description: "Hello everyone",
-            date: "2022-10-01T06:44:38.934Z"
-        }
-    ])
-})
 
 router.get('/dashboard', verifyToken, (req, res) => {
     res.send(req.userId)

@@ -9,12 +9,12 @@ app.use(cors())
 
 app.use(express.json())
 
-app.use('/apiservices', require('./routes/index'))
-app.use('/apiservices/usuarios', require('./routes/indexUsers'))
-app.use('/apiservices/products', require('./routes/indexProducts'))
+app.use('/movie-header', require('./routes/index'))
+app.use('/movie-header/users', require('./routes/indexUsers'))
+app.use('/movie-header/movies', require('./routes/indexMovies'))
 
 app.get("/", (req, res) => {
-    res.status(200).send("Hola API-Servicios Backend")
+    res.status(200).send("Hola Movies-Header Backend")
 })
 
 app.listen(3000, () => {

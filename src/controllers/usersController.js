@@ -1,28 +1,16 @@
-const Usuario = require("../models/users");
+const User = require("../models/users");
 
 
-exports.crearUsuario = async (req, res) => {
+exports.createUser = async (req, res) => {
 
     try {
-        let usuario;
+        let user;
 
         // Creamos nuestro usuario
-        usuario = new Usuario(req.body);
+        user = new User(req.body);
 
-        await usuario.save();
-        res.send(usuario);
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Hubo un error');
-    }
-}
-
-exports.obtenerUsuarios = async (req, res) => {
-
-    try {
-        const usuarios = await Usuario.find();
-        res.json(usuarios)
+        await user.save();
+        res.send(user);
 
     } catch (error) {
         console.log(error);
@@ -30,27 +18,35 @@ exports.obtenerUsuarios = async (req, res) => {
     }
 }
 
-exports.actualizarUsuario = async (req, res) => {
+exports.getUsers = async (req, res) => {
 
     try {
-        const { email, firstname, lastname, password, rol, date, age, address } = req.body;
-        let usuario = await Usuario.findById(req.params.id);
+        const user = await User.find();
+        res.json(user)
 
-        if(!usuario) {
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}
+
+exports.updateUser = async (req, res) => {
+
+    try {
+        const { email, nickname, password, rol} = req.body;
+        let user = await User.findById(req.params.id);
+
+        if(!user) {
             res.status(404).json({ msg: 'No existe el usuario' })
         }
 
-        usuario.email = email
-        usuario.firstname = firstname
-        usuario.lastname = lastname
-        usuario.password = password
-        usuario.rol = rol
-        usuario.date = date
-        usuario.age = age
-        usuario.address = address
+        user.email = email
+        user.nickname = nickname
+        user.password = password
+        user.rol = rol
 
-        usuario = await Usuario.findOneAndUpdate({ _id: req.params.id },usuario, { new: true} )
-        res.json(usuario);
+        user = await User.findOneAndUpdate({ _id: req.params.id },user, { new: true} )
+        res.json(user);
 
     } catch (error) {
         console.log(error);
@@ -59,16 +55,16 @@ exports.actualizarUsuario = async (req, res) => {
 }
 
 
-exports.obtenerUsuario = async (req, res) => {
+exports.getUser = async (req, res) => {
 
     try {
-        let usuario = await Usuario.findById(req.params.id);
+        let user = await User.findById(req.params.id);
 
-        if(!usuario) {
+        if(!user) {
             res.status(404).json({ msg: 'No existe el usuario' })
         }
 
-        res.json(usuario);
+        res.json(user);
 
     } catch (error) {
         console.log(error);
@@ -76,16 +72,16 @@ exports.obtenerUsuario = async (req, res) => {
     }
 }
 
-exports.eliminarUsuario = async (req, res) => {
+exports.deleteUser = async (req, res) => {
 
     try {
-        let usuario = await Usuario.findById(req.params.id);
+        let user = await User.findById(req.params.id);
 
-        if(!usuario) {
+        if(!user) {
             res.status(404).json({ msg: 'No existe el usuario' })
         }
 
-        await Usuario.findOneAndRemove({ _id: req.params.id })
+        await User.findOneAndRemove({ _id: req.params.id })
         res.json({ msg: 'Usuario eliminado con exito' });
 
     } catch (error) {
